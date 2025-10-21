@@ -47,12 +47,13 @@ export default function AnalyzePage() {
               <Badge variant="secondary">
                 {creditsRemaining} credits remaining
               </Badge>
-              <Button variant="ghost" size="sm">
-                <Link href="/dashboard">Dashboard</Link>
-              </Button>
-              <Button variant="ghost" size="sm">
+              <Button variant="ghost" size="sm" asChild>
                 <Link href="/history">History</Link>
               </Button>
+              <Button variant="ghost" size="sm" asChild>
+                <Link href="/saved">Saved</Link>
+              </Button>
+              <Button variant="ghost" size="sm">Profile</Button>
             </div>
           </div>
         </div>
