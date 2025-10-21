@@ -1,32 +1,32 @@
-import { type ClassValue, clsx } from "clsx"
-import { twMerge } from "tailwind-merge"
+import { type ClassValue, clsx } from 'clsx';
+import { twMerge } from 'tailwind-merge';
 
 /**
  * Utility function to merge Tailwind CSS classes
  */
 export function cn(...inputs: ClassValue[]) {
-  return twMerge(clsx(inputs))
+  return twMerge(clsx(inputs));
 }
 
 /**
  * Format date to readable string
  */
 export function formatDate(date: string | Date): string {
-  const d = typeof date === 'string' ? new Date(date) : date
+  const d = typeof date === 'string' ? new Date(date) : date;
   return new Intl.DateTimeFormat('en-US', {
     year: 'numeric',
     month: 'short',
     day: 'numeric',
     hour: '2-digit',
     minute: '2-digit',
-  }).format(d)
+  }).format(d);
 }
 
 /**
  * Format number to percentage
  */
 export function formatPercentage(value: number): string {
-  return `${(value * 100).toFixed(1)}%`
+  return `${(value * 100).toFixed(1)}%`;
 }
 
 /**
@@ -34,20 +34,20 @@ export function formatPercentage(value: number): string {
  */
 export function formatNumber(num: number): string {
   if (num >= 1000000) {
-    return `${(num / 1000000).toFixed(1)}M`
+    return `${(num / 1000000).toFixed(1)}M`;
   }
   if (num >= 1000) {
-    return `${(num / 1000).toFixed(1)}K`
+    return `${(num / 1000).toFixed(1)}K`;
   }
-  return num.toString()
+  return num.toString();
 }
 
 /**
  * Truncate text with ellipsis
  */
 export function truncate(text: string, maxLength: number): string {
-  if (text.length <= maxLength) return text
-  return text.substring(0, maxLength) + '...'
+  if (text.length <= maxLength) return text;
+  return text.substring(0, maxLength) + '...';
 }
 
 /**
@@ -56,15 +56,15 @@ export function truncate(text: string, maxLength: number): string {
 export function getSentimentColor(sentiment: string): string {
   switch (sentiment.toLowerCase()) {
     case 'positive':
-      return 'text-green-600 bg-green-50'
+      return 'text-green-600 bg-green-50';
     case 'negative':
-      return 'text-red-600 bg-red-50'
+      return 'text-red-600 bg-red-50';
     case 'neutral':
-      return 'text-gray-600 bg-gray-50'
+      return 'text-gray-600 bg-gray-50';
     case 'sarcastic':
-      return 'text-purple-600 bg-purple-50'
+      return 'text-purple-600 bg-purple-50';
     default:
-      return 'text-gray-600 bg-gray-50'
+      return 'text-gray-600 bg-gray-50';
   }
 }
 
@@ -74,38 +74,38 @@ export function getSentimentColor(sentiment: string): string {
 export function getEmotionColor(emotion: string): string {
   switch (emotion.toLowerCase()) {
     case 'joy':
-      return 'text-yellow-600 bg-yellow-50'
+      return 'text-yellow-600 bg-yellow-50';
     case 'anger':
-      return 'text-red-600 bg-red-50'
+      return 'text-red-600 bg-red-50';
     case 'fear':
-      return 'text-purple-600 bg-purple-50'
+      return 'text-purple-600 bg-purple-50';
     case 'surprise':
-      return 'text-blue-600 bg-blue-50'
+      return 'text-blue-600 bg-blue-50';
     case 'sadness':
-      return 'text-indigo-600 bg-indigo-50'
+      return 'text-indigo-600 bg-indigo-50';
     default:
-      return 'text-gray-600 bg-gray-50'
+      return 'text-gray-600 bg-gray-50';
   }
 }
 
 /**
  * Debounce function
  */
-export function debounce<T extends (...args: any[]) => any>(
+export function debounce<T extends (...args: unknown[]) => unknown>(
   func: T,
   wait: number
 ): (...args: Parameters<T>) => void {
-  let timeout: NodeJS.Timeout | null = null
+  let timeout: NodeJS.Timeout | null = null;
 
   return function executedFunction(...args: Parameters<T>) {
     const later = () => {
-      timeout = null
-      func(...args)
-    }
+      timeout = null;
+      func(...args);
+    };
 
     if (timeout) {
-      clearTimeout(timeout)
+      clearTimeout(timeout);
     }
-    timeout = setTimeout(later, wait)
-  }
+    timeout = setTimeout(later, wait);
+  };
 }
