@@ -23,10 +23,10 @@ export function SocialAuthButtons({ isLoading = false, mode }: SocialAuthButtons
       {/* Divider */}
       <div className="relative my-6">
         <div className="absolute inset-0 flex items-center">
-          <span className="w-full border-t" />
+          <span className="w-full border-t-2 border-slate-200" />
         </div>
         <div className="relative flex justify-center text-xs uppercase">
-          <span className="bg-white dark:bg-slate-950 px-2 text-slate-500">
+          <span className="bg-white dark:bg-slate-950 px-2 text-slate-500 font-medium">
             Or continue with
           </span>
         </div>

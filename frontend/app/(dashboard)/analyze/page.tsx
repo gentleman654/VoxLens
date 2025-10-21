@@ -88,16 +88,16 @@ export default function AnalyzePage() {
               <div className="flex items-center gap-2">
                 <span className="text-sm text-slate-600 dark:text-slate-400">Time range:</span>
                 <div className="flex gap-2">
-                  {["24h", "7d", "30d"].map((range) => (
-                    <Button
-                      key={range}
-                      variant={timeRange === range ? "default" : "outline"}
-                      size="sm"
-                      onClick={() => setTimeRange(range)}
-                    >
-                      {range === "24h" ? "Last 24 hours" : range === "7d" ? "Last 7 days" : "Last 30 days"}
-                    </Button>
-                  ))}
+                    {["24h", "7d", "30d"].map((range) => (
+                      <Button
+                        key={range}
+                        variant={timeRange === range ? "outline" : "default"}
+                        size="sm"
+                        onClick={() => setTimeRange(range)}
+                      >
+                        {range === "24h" ? "Last 24 hours" : range === "7d" ? "Last 7 days" : "Last 30 days"}
+                      </Button>
+                    ))}
                 </div>
               </div>
 
@@ -105,27 +105,27 @@ export default function AnalyzePage() {
               <div className="flex items-center gap-2">
                 <span className="text-sm text-slate-600 dark:text-slate-400">AI Model:</span>
                 <div className="flex gap-2">
-                  <Button
-                    variant={selectedModel === "vader" ? "default" : "outline"}
-                    size="sm"
-                    onClick={() => setSelectedModel("vader")}
-                  >
-                    VADER
-                  </Button>
-                  <Button
-                    variant={selectedModel === "roberta" ? "default" : "outline"}
-                    size="sm"
-                    onClick={() => setSelectedModel("roberta")}
-                  >
-                    RoBERTa
-                  </Button>
-                  <Button
-                    variant={selectedModel === "custom" ? "default" : "outline"}
-                    size="sm"
-                    onClick={() => setSelectedModel("custom")}
-                  >
-                    Custom
-                  </Button>
+                    <Button
+                      variant={selectedModel === "vader" ? "outline" : "default"}
+                      size="sm"
+                      onClick={() => setSelectedModel("vader")}
+                    >
+                      VADER
+                    </Button>
+                    <Button
+                      variant={selectedModel === "roberta" ? "outline" : "default"}
+                      size="sm"
+                      onClick={() => setSelectedModel("roberta")}
+                    >
+                      RoBERTa
+                    </Button>
+                    <Button
+                      variant={selectedModel === "custom" ? "outline" : "default"}
+                      size="sm"
+                      onClick={() => setSelectedModel("custom")}
+                    >
+                      Custom
+                    </Button>
                 </div>
               </div>
             </CardContent>
