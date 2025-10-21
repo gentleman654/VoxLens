@@ -1,30 +1,51 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { useAnalysisStore } from "@/store/analysis-store";
-import { useUserStore } from "@/store/user-store";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import Link from "next/link";
+import { useState } from 'react';
+import { useAnalysisStore } from '@/store/analysis-store';
+import { useUserStore } from '@/store/user-store';
+import { Button } from '@/components/ui/button';
+import { Input } from '@/components/ui/input';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import Link from 'next/link';
+import { ProtectedRoute } from '@/components/auth/ProtectedRoute';
 
 export default function AnalyzePage() {
-  const [query, setQuery] = useState("");
-  const [timeRange, setTimeRange] = useState("7d");
-  
-  const { isAnalyzing, progress, sentimentSummary, selectedModel, setSelectedModel } = useAnalysisStore();
+  return (
+    <ProtectedRoute>
+      <AnalyzePageContent />
+    </ProtectedRoute>
+  );
+}
+
+function AnalyzePageContent() {
+  const [query, setQuery] = useState('');
+  const [timeRange, setTimeRange] = useState('7d');
+
+  const {
+    isAnalyzing,
+    progress,
+    sentimentSummary,
+    selectedModel,
+    setSelectedModel,
+  } = useAnalysisStore();
   const { creditsRemaining } = useUserStore();
 
   const handleAnalyze = async () => {
     if (!query.trim()) {
-      alert("Please enter a search query");
+      alert('Please enter a search query');
       return;
     }
 
     if (creditsRemaining <= 0) {
-      alert("No credits remaining! Upgrade to Pro to continue.");
+      alert('No credits remaining! Upgrade to Pro to continue.');
       return;
     }
 
@@ -53,7 +74,9 @@ export default function AnalyzePage() {
               <Button variant="ghost" size="sm" asChild>
                 <Link href="/saved">Saved</Link>
               </Button>
-              <Button variant="ghost" size="sm">Profile</Button>
+              <Button variant="ghost" size="sm">
+                Profile
+              </Button>
             </div>
           </div>
         </div>
@@ -75,57 +98,70 @@ export default function AnalyzePage() {
                   placeholder="e.g., Climate Change, Taylor Swift, iPhone 16..."
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
-                  onKeyDown={(e) => e.key === "Enter" && handleAnalyze()}
+                  onKeyDown={(e) => e.key === 'Enter' && handleAnalyze()}
                   className="flex-1"
                   disabled={isAnalyzing}
                 />
-                <Button onClick={handleAnalyze} disabled={isAnalyzing || !query.trim()}>
-                  {isAnalyzing ? `Analyzing... ${progress}%` : "Analyze"}
+                <Button
+                  onClick={handleAnalyze}
+                  disabled={isAnalyzing || !query.trim()}
+                >
+                  {isAnalyzing ? `Analyzing... ${progress}%` : 'Analyze'}
                 </Button>
               </div>
 
               {/* Time Range Selector */}
               <div className="flex items-center gap-2">
-                <span className="text-sm text-slate-600 dark:text-slate-400">Time range:</span>
+                <span className="text-sm text-slate-600 dark:text-slate-400">
+                  Time range:
+                </span>
                 <div className="flex gap-2">
-                    {["24h", "7d", "30d"].map((range) => (
-                      <Button
-                        key={range}
-                        variant={timeRange === range ? "outline" : "default"}
-                        size="sm"
-                        onClick={() => setTimeRange(range)}
-                      >
-                        {range === "24h" ? "Last 24 hours" : range === "7d" ? "Last 7 days" : "Last 30 days"}
-                      </Button>
-                    ))}
+                  {['24h', '7d', '30d'].map((range) => (
+                    <Button
+                      key={range}
+                      variant={timeRange === range ? 'outline' : 'default'}
+                      size="sm"
+                      onClick={() => setTimeRange(range)}
+                    >
+                      {range === '24h'
+                        ? 'Last 24 hours'
+                        : range === '7d'
+                        ? 'Last 7 days'
+                        : 'Last 30 days'}
+                    </Button>
+                  ))}
                 </div>
               </div>
 
               {/* Model Selector */}
               <div className="flex items-center gap-2">
-                <span className="text-sm text-slate-600 dark:text-slate-400">AI Model:</span>
+                <span className="text-sm text-slate-600 dark:text-slate-400">
+                  AI Model:
+                </span>
                 <div className="flex gap-2">
-                    <Button
-                      variant={selectedModel === "vader" ? "outline" : "default"}
-                      size="sm"
-                      onClick={() => setSelectedModel("vader")}
-                    >
-                      VADER
-                    </Button>
-                    <Button
-                      variant={selectedModel === "roberta" ? "outline" : "default"}
-                      size="sm"
-                      onClick={() => setSelectedModel("roberta")}
-                    >
-                      RoBERTa
-                    </Button>
-                    <Button
-                      variant={selectedModel === "custom" ? "outline" : "default"}
-                      size="sm"
-                      onClick={() => setSelectedModel("custom")}
-                    >
-                      Custom
-                    </Button>
+                  <Button
+                    variant={selectedModel === 'vader' ? 'outline' : 'default'}
+                    size="sm"
+                    onClick={() => setSelectedModel('vader')}
+                  >
+                    VADER
+                  </Button>
+                  <Button
+                    variant={
+                      selectedModel === 'roberta' ? 'outline' : 'default'
+                    }
+                    size="sm"
+                    onClick={() => setSelectedModel('roberta')}
+                  >
+                    RoBERTa
+                  </Button>
+                  <Button
+                    variant={selectedModel === 'custom' ? 'outline' : 'default'}
+                    size="sm"
+                    onClick={() => setSelectedModel('custom')}
+                  >
+                    Custom
+                  </Button>
                 </div>
               </div>
             </CardContent>
@@ -210,7 +246,9 @@ export default function AnalyzePage() {
                     <CardTitle>Recent Tweets</CardTitle>
                   </CardHeader>
                   <CardContent className="space-y-4">
-                    <p className="text-slate-400">Tweets will be displayed here in real-time</p>
+                    <p className="text-slate-400">
+                      Tweets will be displayed here in real-time
+                    </p>
                   </CardContent>
                 </Card>
               </TabsContent>
@@ -243,7 +281,8 @@ export default function AnalyzePage() {
                 <div className="text-6xl mb-4">🔍</div>
                 <h3 className="text-xl font-semibold mb-2">No Analysis Yet</h3>
                 <p className="text-slate-600 dark:text-slate-400 text-center max-w-md">
-                  Enter a search query above and click &quot;Analyze&quot; to get started with sentiment analysis
+                  Enter a search query above and click &quot;Analyze&quot; to
+                  get started with sentiment analysis
                 </p>
               </CardContent>
             </Card>

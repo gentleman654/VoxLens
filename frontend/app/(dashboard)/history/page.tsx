@@ -1,93 +1,99 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { useUserStore } from "@/store/user-store";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Input } from "@/components/ui/input";
-import Link from "next/link";
-import { 
-  Search, 
-  Calendar, 
-  TrendingUp, 
-  TrendingDown, 
-  Minus, 
+import { useState } from 'react';
+import { useUserStore } from '@/store/user-store';
+import { Button } from '@/components/ui/button';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Input } from '@/components/ui/input';
+import Link from 'next/link';
+import {
+  Search,
+  Calendar,
+  TrendingUp,
+  TrendingDown,
+  Minus,
   Download,
   Trash2,
-  RefreshCw
-} from "lucide-react";
+  RefreshCw,
+} from 'lucide-react';
 
 // Mock data - will be replaced with API calls
 const mockSearchHistory = [
   {
-    id: "1",
-    query: "Donald Trump",
-    createdAt: "2025-10-20T14:30:00Z",
-    completedAt: "2025-10-20T14:32:15Z",
-    status: "completed",
+    id: '1',
+    query: 'Donald Trump',
+    createdAt: '2025-10-20T14:30:00Z',
+    completedAt: '2025-10-20T14:32:15Z',
+    status: 'completed',
     totalTweets: 1247,
     sentimentSummary: {
       positive: 35,
       negative: 48,
       neutral: 12,
-      sarcastic: 5
-    }
+      sarcastic: 5,
+    },
   },
   {
-    id: "2",
-    query: "Climate change policies",
-    createdAt: "2025-10-19T09:15:00Z",
-    completedAt: "2025-10-19T09:17:45Z",
-    status: "completed",
+    id: '2',
+    query: 'Climate change policies',
+    createdAt: '2025-10-19T09:15:00Z',
+    completedAt: '2025-10-19T09:17:45Z',
+    status: 'completed',
     totalTweets: 892,
     sentimentSummary: {
       positive: 52,
       negative: 28,
       neutral: 15,
-      sarcastic: 5
-    }
+      sarcastic: 5,
+    },
   },
   {
-    id: "3",
-    query: "Taylor Swift",
-    createdAt: "2025-10-18T16:45:00Z",
-    completedAt: "2025-10-18T16:48:20Z",
-    status: "completed",
+    id: '3',
+    query: 'Taylor Swift',
+    createdAt: '2025-10-18T16:45:00Z',
+    completedAt: '2025-10-18T16:48:20Z',
+    status: 'completed',
     totalTweets: 2134,
     sentimentSummary: {
       positive: 78,
       negative: 12,
       neutral: 8,
-      sarcastic: 2
-    }
+      sarcastic: 2,
+    },
   },
   {
-    id: "4",
-    query: "Bitcoin price",
-    createdAt: "2025-10-17T11:20:00Z",
-    completedAt: "2025-10-17T11:22:35Z",
-    status: "completed",
+    id: '4',
+    query: 'Bitcoin price',
+    createdAt: '2025-10-17T11:20:00Z',
+    completedAt: '2025-10-17T11:22:35Z',
+    status: 'completed',
     totalTweets: 1563,
     sentimentSummary: {
       positive: 42,
       negative: 38,
       neutral: 18,
-      sarcastic: 2
-    }
+      sarcastic: 2,
+    },
   },
   {
-    id: "5",
-    query: "AI regulation",
-    createdAt: "2025-10-16T08:00:00Z",
-    status: "failed",
+    id: '5',
+    query: 'AI regulation',
+    createdAt: '2025-10-16T08:00:00Z',
+    status: 'failed',
     totalTweets: 0,
-    sentimentSummary: null
-  }
+    sentimentSummary: null,
+  },
 ];
 
 export default function HistoryPage() {
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchTerm, setSearchTerm] = useState('');
   const { creditsRemaining } = useUserStore();
 
   const filteredHistory = mockSearchHistory.filter((search) =>
@@ -96,20 +102,22 @@ export default function HistoryPage() {
 
   const formatDate = (dateString: string) => {
     const date = new Date(dateString);
-    return date.toLocaleDateString("en-US", {
-      month: "short",
-      day: "numeric",
-      hour: "2-digit",
-      minute: "2-digit"
+    return date.toLocaleDateString('en-US', {
+      month: 'short',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
     });
   };
 
-  const getSentimentTrend = (summary: typeof mockSearchHistory[0]["sentimentSummary"]) => {
+  const getSentimentTrend = (
+    summary: (typeof mockSearchHistory)[0]['sentimentSummary']
+  ) => {
     if (!summary) return null;
     const { positive, negative } = summary;
-    if (positive > negative + 10) return "positive";
-    if (negative > positive + 10) return "negative";
-    return "neutral";
+    if (positive > negative + 10) return 'positive';
+    if (negative > positive + 10) return 'negative';
+    return 'neutral';
   };
 
   const handleDelete = (id: string) => {
@@ -128,24 +136,34 @@ export default function HistoryPage() {
       <header className="sticky top-0 z-50 w-full border-b-2 border-slate-200 bg-white dark:bg-slate-900 dark:border-slate-800">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
-            <Link href="/" className="flex items-center gap-2 transition-transform hover:scale-105">
+            <Link
+              href="/"
+              className="flex items-center gap-2 transition-transform hover:scale-105"
+            >
               <span className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                 VoxLens
               </span>
             </Link>
             <div className="flex items-center gap-4">
-              <Link href="/analyze" className="text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors">
+              <Link
+                href="/analyze"
+                className="text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors"
+              >
                 Analyze
               </Link>
-              <Link href="/history" className="text-sm font-medium text-slate-900 dark:text-white border-b-2 border-blue-600">
+              <Link
+                href="/history"
+                className="text-sm font-medium text-slate-900 dark:text-white border-b-2 border-blue-600"
+              >
                 History
               </Link>
-              <Link href="/saved" className="text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors">
+              <Link
+                href="/saved"
+                className="text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors"
+              >
                 Saved
               </Link>
-              <Badge variant="secondary">
-                {creditsRemaining} credits
-              </Badge>
+              <Badge variant="secondary">{creditsRemaining} credits</Badge>
               <Button variant="ghost" size="sm" asChild>
                 <Link href="/settings">Settings</Link>
               </Button>
@@ -180,9 +198,7 @@ export default function HistoryPage() {
                     className="pl-10"
                   />
                 </div>
-                <Button variant="outline">
-                  Filter
-                </Button>
+                <Button variant="outline">Filter</Button>
               </div>
             </CardContent>
           </Card>
@@ -197,7 +213,9 @@ export default function HistoryPage() {
                     No searches found
                   </h3>
                   <p className="text-slate-600 dark:text-slate-400 mb-4">
-                    {searchTerm ? "Try a different search term" : "Start analyzing topics to see your history here"}
+                    {searchTerm
+                      ? 'Try a different search term'
+                      : 'Start analyzing topics to see your history here'}
                   </p>
                   {!searchTerm && (
                     <Button asChild>
@@ -210,7 +228,10 @@ export default function HistoryPage() {
               filteredHistory.map((search) => {
                 const trend = getSentimentTrend(search.sentimentSummary);
                 return (
-                  <Card key={search.id} className="hover:shadow-lg transition-all">
+                  <Card
+                    key={search.id}
+                    className="hover:shadow-lg transition-all"
+                  >
                     <CardHeader>
                       <div className="flex items-start justify-between">
                         <div className="flex-1">
@@ -218,35 +239,41 @@ export default function HistoryPage() {
                             <CardTitle className="text-xl">
                               {search.query}
                             </CardTitle>
-                            <Badge 
+                            <Badge
                               variant={
-                                search.status === "completed" 
-                                  ? "secondary" 
-                                  : search.status === "failed" 
-                                  ? "destructive" 
-                                  : "outline"
+                                search.status === 'completed'
+                                  ? 'secondary'
+                                  : search.status === 'failed'
+                                  ? 'destructive'
+                                  : 'outline'
                               }
                             >
                               {search.status}
                             </Badge>
                             {trend && (
                               <Badge variant="outline" className="gap-1">
-                                {trend === "positive" && (
+                                {trend === 'positive' && (
                                   <>
                                     <TrendingUp className="h-3 w-3 text-green-600" />
-                                    <span className="text-green-600">Positive</span>
+                                    <span className="text-green-600">
+                                      Positive
+                                    </span>
                                   </>
                                 )}
-                                {trend === "negative" && (
+                                {trend === 'negative' && (
                                   <>
                                     <TrendingDown className="h-3 w-3 text-red-600" />
-                                    <span className="text-red-600">Negative</span>
+                                    <span className="text-red-600">
+                                      Negative
+                                    </span>
                                   </>
                                 )}
-                                {trend === "neutral" && (
+                                {trend === 'neutral' && (
                                   <>
                                     <Minus className="h-3 w-3 text-slate-600" />
-                                    <span className="text-slate-600">Neutral</span>
+                                    <span className="text-slate-600">
+                                      Neutral
+                                    </span>
                                   </>
                                 )}
                               </Badge>
@@ -259,20 +286,25 @@ export default function HistoryPage() {
                             </span>
                             {search.totalTweets > 0 && (
                               <span>
-                                {search.totalTweets.toLocaleString()} tweets analyzed
+                                {search.totalTweets.toLocaleString()} tweets
+                                analyzed
                               </span>
                             )}
                           </CardDescription>
                         </div>
                         <div className="flex gap-2">
-                          {search.status === "completed" && (
+                          {search.status === 'completed' && (
                             <>
                               <Button variant="outline" size="sm" asChild>
                                 <Link href={`/analyze?id=${search.id}`}>
                                   View Details
                                 </Link>
                               </Button>
-                              <Button variant="ghost" size="sm" onClick={() => handleReanalyze(search.query)}>
+                              <Button
+                                variant="ghost"
+                                size="sm"
+                                onClick={() => handleReanalyze(search.query)}
+                              >
                                 <RefreshCw className="h-4 w-4" />
                               </Button>
                               <Button variant="ghost" size="sm">
@@ -280,7 +312,11 @@ export default function HistoryPage() {
                               </Button>
                             </>
                           )}
-                          <Button variant="ghost" size="sm" onClick={() => handleDelete(search.id)}>
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => handleDelete(search.id)}
+                          >
                             <Trash2 className="h-4 w-4 text-red-600" />
                           </Button>
                         </div>
@@ -293,25 +329,33 @@ export default function HistoryPage() {
                             <div className="text-2xl font-bold text-green-600">
                               {search.sentimentSummary.positive}%
                             </div>
-                            <div className="text-xs text-slate-600 dark:text-slate-400">Positive</div>
+                            <div className="text-xs text-slate-600 dark:text-slate-400">
+                              Positive
+                            </div>
                           </div>
                           <div className="text-center">
                             <div className="text-2xl font-bold text-red-600">
                               {search.sentimentSummary.negative}%
                             </div>
-                            <div className="text-xs text-slate-600 dark:text-slate-400">Negative</div>
+                            <div className="text-xs text-slate-600 dark:text-slate-400">
+                              Negative
+                            </div>
                           </div>
                           <div className="text-center">
                             <div className="text-2xl font-bold text-slate-600">
                               {search.sentimentSummary.neutral}%
                             </div>
-                            <div className="text-xs text-slate-600 dark:text-slate-400">Neutral</div>
+                            <div className="text-xs text-slate-600 dark:text-slate-400">
+                              Neutral
+                            </div>
                           </div>
                           <div className="text-center">
                             <div className="text-2xl font-bold text-purple-600">
                               {search.sentimentSummary.sarcastic}%
                             </div>
-                            <div className="text-xs text-slate-600 dark:text-slate-400">Sarcastic</div>
+                            <div className="text-xs text-slate-600 dark:text-slate-400">
+                              Sarcastic
+                            </div>
                           </div>
                         </div>
                       </CardContent>

@@ -5,6 +5,7 @@
 ### Option A: Using Official Installer (Recommended for Windows)
 
 1. **Download PostgreSQL:**
+
    - Go to: https://www.postgresql.org/download/windows/
    - Click "Download the installer"
    - Choose the latest version (PostgreSQL 16.x)
@@ -13,9 +14,9 @@
 2. **Run the Installer:**
    - Double-click the downloaded `.exe` file
    - Click "Next" through the welcome screen
-   - **Installation Directory:** Keep default (`C:\Program Files\PostgreSQL\16`)
+   - **Installation Directory:** Default is `C:\Program Files\PostgreSQL\16` (or `D:\PostgreSQL\16` if installing to D: drive)
    - **Select Components:** Check all (PostgreSQL Server, pgAdmin 4, Stack Builder, Command Line Tools)
-   - **Data Directory:** Keep default
+   - **Data Directory:** Keep default (will be in same drive as installation)
    - **Password:** Set a password for the `postgres` superuser
      - **IMPORTANT:** Remember this password! You'll need it for the `.env` file
      - Example: `your_secure_password_123`
@@ -132,6 +133,7 @@ alembic init alembic
 ```
 
 This will create:
+
 - `alembic/` directory with migration files
 - `alembic.ini` configuration file
 
@@ -140,11 +142,13 @@ This will create:
 Edit `alembic.ini` and update the database URL:
 
 Find this line (around line 63):
+
 ```ini
 sqlalchemy.url = driver://user:pass@localhost/dbname
 ```
 
 Replace with:
+
 ```ini
 # Comment out or delete this line, we'll use env.py instead
 # sqlalchemy.url = postgresql+asyncpg://postgres:your_password@localhost:5432/voxlens
@@ -153,6 +157,7 @@ Replace with:
 Edit `alembic/env.py`:
 
 Add these imports at the top:
+
 ```python
 from app.core.config import settings
 from app.db.session import Base
@@ -160,11 +165,13 @@ from app.db.models import *  # Import all models
 ```
 
 Find the `config.set_main_option()` line and update:
+
 ```python
 config.set_main_option("sqlalchemy.url", settings.DATABASE_URL)
 ```
 
 Find `target_metadata` and update:
+
 ```python
 target_metadata = Base.metadata
 ```
@@ -224,14 +231,18 @@ Visit: http://localhost:8000/docs to see the API documentation!
 ## Troubleshooting
 
 ### Issue: "psql is not recognized"
+
 **Solution:** Add PostgreSQL to PATH:
+
 1. Search "Environment Variables" in Windows
 2. Edit "Path" in System Variables
-3. Add: `C:\Program Files\PostgreSQL\16\bin`
+3. Add: `C:\Program Files\PostgreSQL\16\bin` (or `D:\PostgreSQL\16\bin` if installed to D: drive)
 4. Restart PowerShell
 
 ### Issue: "Connection refused"
+
 **Solution:** Check if PostgreSQL service is running:
+
 ```powershell
 # Check service status
 Get-Service postgresql*
@@ -241,13 +252,17 @@ Start-Service postgresql-x64-16
 ```
 
 ### Issue: "password authentication failed"
+
 **Solution:** Double-check your password in `.env` matches your PostgreSQL password
 
 ### Issue: "database does not exist"
+
 **Solution:** Create the database using the SQL commands in Step 3
 
 ### Issue: Alembic migration errors
-**Solution:** 
+
+**Solution:**
+
 1. Make sure all models are imported in `alembic/env.py`
 2. Check `DATABASE_URL` in `.env` is correct
 3. Delete `alembic/versions/` folder and re-create migration
@@ -293,6 +308,7 @@ alembic downgrade -1
 6. ✅ Backend server running
 
 **Now you can:**
+
 - Test API endpoints at http://localhost:8000/docs
 - Register a user via the API
 - Connect the frontend to the backend

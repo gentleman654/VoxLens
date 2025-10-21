@@ -1,8 +1,8 @@
-import type { Metadata } from "next";
+import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "Authentication - VoxLens",
-  description: "Login or sign up to VoxLens",
+  title: 'Authentication - VoxLens',
+  description: 'Login or sign up to VoxLens',
 };
 
 export default function AuthLayout({

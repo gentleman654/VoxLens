@@ -32,11 +32,12 @@ export const useAnalysisStore = create<AnalysisState>((set) => ({
   setProgress: (progress) => set({ progress }),
   setSentimentSummary: (summary) => set({ sentimentSummary: summary }),
   setSelectedModel: (model) => set({ selectedModel: model }),
-  reset: () => set({
-    currentSearch: null,
-    tweets: [],
-    isAnalyzing: false,
-    progress: 0,
-    sentimentSummary: null,
-  }),
+  reset: () =>
+    set({
+      currentSearch: null,
+      tweets: [],
+      isAnalyzing: false,
+      progress: 0,
+      sentimentSummary: null,
+    }),
 }));

@@ -1,44 +1,46 @@
-"use client";
+'use client';
 
-import { useState } from "react";
-import { useUserStore } from "@/store/user-store";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Badge } from "@/components/ui/badge";
-import { Input } from "@/components/ui/input";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import Link from "next/link";
-import { 
-  User,
-  CreditCard,
-  Bell,
-  Lock,
-  Trash2,
-  Check,
-  X
-} from "lucide-react";
+import { useState } from 'react';
+import { useUserStore } from '@/store/user-store';
+import { Button } from '@/components/ui/button';
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
+import { Input } from '@/components/ui/input';
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs';
+import Link from 'next/link';
+import { User, CreditCard, Bell, Lock, Trash2, Check, X } from 'lucide-react';
 
 export default function SettingsPage() {
   const { user, creditsRemaining } = useUserStore();
-  const [email, setEmail] = useState(user?.email || "");
-  const [fullName, setFullName] = useState(user?.fullName || "");
+  const [email, setEmail] = useState(user?.email || '');
+  const [fullName, setFullName] = useState(user?.fullName || '');
   const [emailNotifications, setEmailNotifications] = useState(true);
   const [weeklyDigest, setWeeklyDigest] = useState(false);
 
   const handleSaveProfile = () => {
     // TODO: Implement save profile API call
-    alert("Profile saved - Will be implemented with backend!");
+    alert('Profile saved - Will be implemented with backend!');
   };
 
   const handleChangePassword = () => {
     // TODO: Implement change password
-    alert("Change password - Will be implemented with backend!");
+    alert('Change password - Will be implemented with backend!');
   };
 
   const handleDeleteAccount = () => {
-    if (confirm("Are you sure you want to delete your account? This action cannot be undone.")) {
+    if (
+      confirm(
+        'Are you sure you want to delete your account? This action cannot be undone.'
+      )
+    ) {
       // TODO: Implement delete account API call
-      alert("Delete account - Will be implemented with backend!");
+      alert('Delete account - Will be implemented with backend!');
     }
   };
 
@@ -48,24 +50,34 @@ export default function SettingsPage() {
       <header className="sticky top-0 z-50 w-full border-b-2 border-slate-200 bg-white dark:bg-slate-900 dark:border-slate-800">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex h-16 items-center justify-between">
-            <Link href="/" className="flex items-center gap-2 transition-transform hover:scale-105">
+            <Link
+              href="/"
+              className="flex items-center gap-2 transition-transform hover:scale-105"
+            >
               <span className="text-2xl font-bold bg-linear-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                 VoxLens
               </span>
             </Link>
             <div className="flex items-center gap-4">
-              <Link href="/analyze" className="text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors">
+              <Link
+                href="/analyze"
+                className="text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors"
+              >
                 Analyze
               </Link>
-              <Link href="/history" className="text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors">
+              <Link
+                href="/history"
+                className="text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors"
+              >
                 History
               </Link>
-              <Link href="/saved" className="text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors">
+              <Link
+                href="/saved"
+                className="text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-colors"
+              >
                 Saved
               </Link>
-              <Badge variant="secondary">
-                {creditsRemaining} credits
-              </Badge>
+              <Badge variant="secondary">{creditsRemaining} credits</Badge>
               <Button variant="ghost" size="sm" asChild>
                 <Link href="/settings">Settings</Link>
               </Button>
@@ -139,9 +151,7 @@ export default function SettingsPage() {
                     />
                   </div>
                   <div className="flex justify-end">
-                    <Button onClick={handleSaveProfile}>
-                      Save Changes
-                    </Button>
+                    <Button onClick={handleSaveProfile}>Save Changes</Button>
                   </div>
                 </CardContent>
               </Card>
@@ -186,11 +196,15 @@ export default function SettingsPage() {
                     </div>
                     <div className="flex items-center gap-2">
                       <X className="h-5 w-5 text-red-600" />
-                      <span className="text-slate-500">Multi-model AI comparison</span>
+                      <span className="text-slate-500">
+                        Multi-model AI comparison
+                      </span>
                     </div>
                     <div className="flex items-center gap-2">
                       <X className="h-5 w-5 text-red-600" />
-                      <span className="text-slate-500">Sarcasm & emotion detection</span>
+                      <span className="text-slate-500">
+                        Sarcasm & emotion detection
+                      </span>
                     </div>
                     <div className="flex items-center gap-2">
                       <X className="h-5 w-5 text-red-600" />
@@ -200,11 +214,15 @@ export default function SettingsPage() {
 
                   <div className="p-4 bg-slate-50 dark:bg-slate-800 rounded-lg mb-6">
                     <div className="flex items-center justify-between mb-2">
-                      <span className="text-sm font-medium">Credits Remaining</span>
-                      <span className="text-2xl font-bold">{creditsRemaining}</span>
+                      <span className="text-sm font-medium">
+                        Credits Remaining
+                      </span>
+                      <span className="text-2xl font-bold">
+                        {creditsRemaining}
+                      </span>
                     </div>
                     <div className="w-full bg-slate-200 dark:bg-slate-700 rounded-full h-2">
-                      <div 
+                      <div
                         className="bg-blue-600 h-2 rounded-full transition-all"
                         style={{ width: `${(creditsRemaining / 50) * 100}%` }}
                       />
@@ -214,9 +232,7 @@ export default function SettingsPage() {
                     </p>
                   </div>
 
-                  <Button className="w-full">
-                    Upgrade to Pro - $19/month
-                  </Button>
+                  <Button className="w-full">Upgrade to Pro - $19/month</Button>
                 </CardContent>
               </Card>
 
@@ -238,7 +254,9 @@ export default function SettingsPage() {
                     </div>
                     <div className="flex items-center gap-2">
                       <Check className="h-5 w-5 text-blue-600" />
-                      <span className="text-sm">All AI models (VADER, RoBERTa, Custom)</span>
+                      <span className="text-sm">
+                        All AI models (VADER, RoBERTa, Custom)
+                      </span>
                     </div>
                     <div className="flex items-center gap-2">
                       <Check className="h-5 w-5 text-blue-600" />
@@ -289,11 +307,11 @@ export default function SettingsPage() {
                       </p>
                     </div>
                     <Button
-                      variant={emailNotifications ? "default" : "outline"}
+                      variant={emailNotifications ? 'default' : 'outline'}
                       size="sm"
                       onClick={() => setEmailNotifications(!emailNotifications)}
                     >
-                      {emailNotifications ? "Enabled" : "Disabled"}
+                      {emailNotifications ? 'Enabled' : 'Disabled'}
                     </Button>
                   </div>
                   <div className="flex items-center justify-between">
@@ -306,11 +324,11 @@ export default function SettingsPage() {
                       </p>
                     </div>
                     <Button
-                      variant={weeklyDigest ? "default" : "outline"}
+                      variant={weeklyDigest ? 'default' : 'outline'}
                       size="sm"
                       onClick={() => setWeeklyDigest(!weeklyDigest)}
                     >
-                      {weeklyDigest ? "Enabled" : "Disabled"}
+                      {weeklyDigest ? 'Enabled' : 'Disabled'}
                     </Button>
                   </div>
                 </CardContent>
@@ -343,10 +361,7 @@ export default function SettingsPage() {
                   </CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <Button 
-                    variant="destructive"
-                    onClick={handleDeleteAccount}
-                  >
+                  <Button variant="destructive" onClick={handleDeleteAccount}>
                     <Trash2 className="h-4 w-4 mr-2" />
                     Delete Account
                   </Button>

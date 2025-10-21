@@ -1,8 +1,8 @@
-import type { Metadata } from "next";
+import type { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: "Dashboard - VoxLens",
-  description: "Analyze sentiment on any topic",
+  title: 'Dashboard - VoxLens',
+  description: 'Analyze sentiment on any topic',
 };
 
 export default function DashboardLayout({

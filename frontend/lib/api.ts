@@ -35,7 +35,7 @@ class ApiClient {
   ): Promise<T> {
     const headers: Record<string, string> = {
       'Content-Type': 'application/json',
-      ...(options.headers as Record<string, string> || {}),
+      ...((options.headers as Record<string, string>) || {}),
     };
 
     if (this.token) {
@@ -76,10 +76,13 @@ class ApiClient {
   }
 
   async refreshToken(refreshToken: string) {
-    return this.request<{ access_token: string }>('/api/v1/auth/refresh', {
-      method: 'POST',
-      body: JSON.stringify({ refresh_token: refreshToken }),
-    });
+    // Send as query parameter, not in body
+    return this.request<{ access_token: string; refresh_token: string }>(
+      `/api/v1/auth/refresh?refresh_token=${encodeURIComponent(refreshToken)}`,
+      {
+        method: 'POST',
+      }
+    );
   }
 
   // Analysis
@@ -158,11 +161,11 @@ class ApiClient {
 
   // User
   async getCurrentUser(): Promise<User> {
-    return this.request<User>('/api/v1/users/me');
+    return this.request<User>('/api/v1/auth/me');
   }
 
   async updateProfile(data: Partial<User>): Promise<User> {
-    return this.request<User>('/api/v1/users/me', {
+    return this.request<User>('/api/v1/auth/me', {
       method: 'PATCH',
       body: JSON.stringify(data),
     });
@@ -172,7 +175,7 @@ class ApiClient {
     credits_remaining: number;
     credits_reset_date: string;
   }> {
-    return this.request('/api/v1/users/me/credits');
+    return this.request('/api/v1/auth/me/credits');
   }
 }
 

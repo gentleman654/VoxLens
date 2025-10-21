@@ -102,6 +102,11 @@ class TweetResponse(BaseModel):
 
 # Sentiment Schemas
 class SentimentResponse(BaseModel):
+    model_config = {
+        "protected_namespaces": (),  # Allow model_name field
+        "from_attributes": True
+    }
+    
     id: UUID
     tweet_id: UUID
     model_name: str
@@ -111,9 +116,6 @@ class SentimentResponse(BaseModel):
     sarcasm_score: Optional[float] = None
     emotions: Optional[dict] = None
     created_at: datetime
-
-    class Config:
-        from_attributes = True
 
 
 # Saved Search Schemas

@@ -122,7 +122,7 @@ export interface AnalysisResponse {
 
 export interface WebSocketMessage {
   type: 'progress' | 'tweet' | 'complete' | 'error';
-  data: any;
+  data: unknown;
 }
 
 export interface ChartData {

@@ -16,5 +16,6 @@ export const useUserStore = create<UserState>((set) => ({
   creditsRemaining: 50, // Default for demo
   setUser: (user) => set({ user, isAuthenticated: !!user }),
   setCredits: (credits) => set({ creditsRemaining: credits }),
-  logout: () => set({ user: null, isAuthenticated: false, creditsRemaining: 0 }),
+  logout: () =>
+    set({ user: null, isAuthenticated: false, creditsRemaining: 0 }),
 }));

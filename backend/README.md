@@ -65,6 +65,7 @@ uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 ## API Documentation
 
 Once running, visit:
+
 - Swagger UI: http://localhost:8000/docs
 - ReDoc: http://localhost:8000/redoc
 
@@ -93,6 +94,7 @@ backend/
 ## API Endpoints
 
 ### Authentication
+
 - `POST /api/v1/auth/register` - Register new user
 - `POST /api/v1/auth/login` - Login user
 - `POST /api/v1/auth/refresh` - Refresh access token
@@ -100,12 +102,14 @@ backend/
 - `POST /api/v1/auth/logout` - Logout user
 
 ### Searches
+
 - `POST /api/v1/searches/` - Create new analysis
 - `GET /api/v1/searches/` - Get search history
 - `GET /api/v1/searches/{id}` - Get specific search
 - `DELETE /api/v1/searches/{id}` - Delete search
 
 ### Saved Searches
+
 - `GET /api/v1/searches/saved/all` - Get all saved searches
 - `POST /api/v1/searches/saved` - Save a search
 - `PATCH /api/v1/searches/saved/{id}` - Update saved search
